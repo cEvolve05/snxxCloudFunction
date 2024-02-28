@@ -13,8 +13,7 @@ const rmComment = require("./function/rmComment");
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext();
     const user = {
-        openid: wxContext.OPENID,
-        unionid: wxContext.UNIONID
+        openid: wxContext.OPENID
     };
     console.log("User: ", user);
     switch (event.type) {
