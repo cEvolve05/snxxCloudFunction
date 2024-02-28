@@ -5,64 +5,72 @@ cloud.init({
 
 const db = cloud.database();
 const collection = db.collection("user_info");
-const onError = require("../utility/errorLog").onError
+const onError = require("../utility/errorLog").onError;
 
 exports.add = async (event, context, user) => {
-    const product = {
-        productGuid: event.productGuid,
-        typeGuid: event.typeGuid
-    }
     const _ = db.command
     return collection.where({
         openid: user.openid
     }).update({
         data: {
-            star: _.addToSet(product)
+            star: _.addToSet(event.productGuid)
         }
     }).then(res => {
-        if (res.stats.updated == 1 || res.stats.updated === 0) {
-            return {
-                isErr: false,
-                err: ""
-            }
-        } else {
+        if (res.stats.updated > 1) {
             return onError({
                 err: "unknown error",
                 product: product,
                 result: res
             })
         }
+
+        return {
+            isErr: false,
+            err: ""
+        }
+    }).catch(err => { return onError(err) });
+}
+
+exports.get = async (event, context, user) => {
+    return collection.where({
+        openid: user.openid
+    }).field({
+        star: true
+    }).get().then(res => {
+        return {
+            isErr: false,
+            err: "",
+            star: res.data[0].star
+        }
     }).catch(err => { return onError(err) });
 }
 
 exports.rm = async (event, context, user) => {
-    const product = {
-        productGuid: event.productGuid,
-        typeGuid: event.typeGuid
-    }
     const _ = db.command
     return collection.where({
         openid: user.openid
     }).update({
         data: {
-            star: _.pull(product)
+            star: _.pull(event.productGuid)
         }
     }).then(res => {
-        if (res.stats.updated == 1) {
-            return {
-                isErr: false,
-                err: ""
-            }
-        } else if (res.stats.updated === 0) {
+        if (res.stats.updated === 0) {
             return onError({
                 err: "remove none form star",
                 product: product
             }, "无法删除未收藏的商品")
-        } else {
+        }
+        if (res.stats.updated > 1) {
             return onError({
-                err: "remove duplicate item form star",
-                product: product
-            }, "删除了多个商品")
+                err: "unknown error",
+                product: product,
+                result: res
+            })
+        }
+
+        return {
+            isErr: false,
+            err: ""
         }
     }).catch(err => { return onError(err) });
 }

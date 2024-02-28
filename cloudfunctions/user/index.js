@@ -7,39 +7,45 @@ cloud.init({
 
 const db = cloud.database();
 // inPackage function
-const getUserInfo = require("./function/getUserInfo.js");
-const getUserProfile = require("./function/getUserProfile.js");
-const setUserInfo = require("./function/setUserInfo.js");
-const setCartItemNumber = require("./function/setCartItemNumber.js")
+const user = require("./function/user.js");
+const cart = require("./function/cart.js");
 const star = require("./function/star.js");
 
 // 云函数入口函数
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext();
     const user = {
-        openid: wxContext.OPENID,
-        unionid: wxContext.UNIONID
+        openid: wxContext.OPENID
     };
     console.log("User: ", user);
     switch (event.type) {
-        case "getUserInfo":
-            return await getUserInfo.main(event, context, user);
-        case "getUserProfile":
-            return await getUserProfile.main(event, context, user);
+        case "checkUserExistence":
+            return await user.checkExistence(event, context, user);
+
+        case "addUser":
+            return await user.add(event, context, user);
         case "setUserInfo":
-            return await setUserInfo.main(event, context, user);
-        case "setCartItemNumber":
-            return await setCartItemNumber.main(event, context, user);
+            return await user.set(event, context, user);
+        case "getUserProfile":
+            return await user.getProfile(event, context, user);
+        case "getUserInfo":
+            return await user.getInfo(event, context, user);
+
+        case "addCart":
+            return await cart.add(event, context, user);
+        case "setCart":
+            return await cart.set(event, context, user);
+        case "getCart":
+            return await cart.get(event, context, user);
+        case "rmCart":
+            return await cart.rm(event, context, user);
+
         case "addStar":
             return await star.add(event, context, user);
+        case "getStar":
+            return await star.get(event, context, user);
         case "rmStar":
             return await star.rm(event, context, user);
-        case "test":
-            return{
-                event: event,
-                context: context,
-                user: user
-            }
         default:
             return "no specific type";
     }
