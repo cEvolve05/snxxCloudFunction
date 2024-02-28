@@ -6,7 +6,6 @@ cloud.init({
 const db = cloud.database();
 const collection = db.collection("user_info");
 const onError = require("../utility/errorLog").onError;
-const newGuid = require("../utility/guid").main;
 
 exports.checkExistence = async (event, context, user) => {
     return Boolen((await collection.where({

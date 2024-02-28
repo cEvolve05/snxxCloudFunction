@@ -6,7 +6,7 @@ cloud.init({
 const db = cloud.database();
 const collection = db.collection("user_info");
 const onError = require("../utility/errorLog").onError;
-const newGuid = require("../utiliorLog").onError;
+const newGuid = require("../utility/guid").main;
 
 exports.main = async (event, context, user) => {
     // codes
