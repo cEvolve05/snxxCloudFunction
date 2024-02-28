@@ -6,6 +6,8 @@ cloud.init({
 }); // 使用当前云环境
 
 const db = cloud.database();
+const onError = require("./utility/errorLog.js").onError;
+
 // inPackage function
 const newOrder = require("./function/newOrder");
 const payOrder = require("./function/payOrder");
@@ -32,6 +34,6 @@ exports.main = async (event, context) => {
                 user: user
             }
         default:
-            return "no specific type";
+            return onError("Invalid event type");
     }
 }
