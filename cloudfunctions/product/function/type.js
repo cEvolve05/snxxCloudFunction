@@ -4,7 +4,7 @@ cloud.init({
 });
 
 const db = cloud.database();
-const collection = db.collection("user_info");
+const collection = db.collection("product_info");
 const onError = require("../utility/errorLog").onError;
 const newGuid = require("../utility/guid").main;
 

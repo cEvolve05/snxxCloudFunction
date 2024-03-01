@@ -46,7 +46,7 @@ exports.add = async (event, context, user) => {
     }).then(res => {
         return {
             isErr: false,
-            err: ""
+            err: null
         }
     }).catch(err => { return onError(err) });
 }
@@ -59,7 +59,7 @@ exports.get = async (event, context, user) => {
     }).get().then(res => {
         return {
             isErr: false,
-            err: "",
+            err: null,
             cart: res.data[0].cart
         }
     }).catch(err => { return onError(err) });
@@ -97,7 +97,7 @@ exports.set = async (event, context, user) => {
     return setNumber(user, product, cartIndex).then(res => {
         return {
             isErr: false,
-            err: ""
+            err: null
         }
     }).catch(err => { return onError(err) });
 }
@@ -111,7 +111,7 @@ exports.rm = async (event, context, user) => {
     return removeItem(user, product).then(res => {
         return {
             isErr: false,
-            err: ""
+            err: null
         }
     }).catch(err => { return onError(err) });
 }

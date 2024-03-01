@@ -26,7 +26,7 @@ exports.add = async (event, context, user) => {
 
         return {
             isErr: false,
-            err: ""
+            err: null
         }
     }).catch(err => { return onError(err) });
 }
@@ -39,7 +39,7 @@ exports.get = async (event, context, user) => {
     }).get().then(res => {
         return {
             isErr: false,
-            err: "",
+            err: null,
             star: res.data[0].star
         }
     }).catch(err => { return onError(err) });
@@ -70,7 +70,7 @@ exports.rm = async (event, context, user) => {
 
         return {
             isErr: false,
-            err: ""
+            err: null
         }
     }).catch(err => { return onError(err) });
 }

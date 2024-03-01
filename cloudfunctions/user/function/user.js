@@ -50,7 +50,7 @@ exports.add = async (event, context, user) => {
     }).then(res => {
         return {
             isErr: false,
-            err: ""
+            err: null
         }
     }).catch(err => { return onError(err) })
 }
@@ -93,7 +93,7 @@ exports.set = async (event, context, user) => {
 
         return {
             isErr: false,
-            err: ""
+            err: null
         }
     }).catch(err => { return onError(err) })
 }
