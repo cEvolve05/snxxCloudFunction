@@ -23,6 +23,8 @@ return:
 - order: Object:
     - status: string (待付款/待发货/待收货/待评价/已完成/退款中/已退款)
     - productGuid: string
+    - buyerId: string openid
+    - merchantId: string openid
     - list: Array (Object:
         - typeGuid: string
         - number: number
@@ -37,6 +39,28 @@ return:
         - send: Date
         - receive: Date
     - note: string
+
+## getMerchantOrderList
+
+农户端使用
+
+parameter: null
+
+return: 
+- *isErr: bool
+- *err: string 错误说明
+- orders: Object (与getOrder同构)
+
+## getUserOrdersList
+
+用户端使用
+
+parameter: null
+
+return: 
+- *isErr: bool
+- *err: string 错误说明
+- orders: Object (与getOrder同构)
 
 ## payOrder (fake)
 
