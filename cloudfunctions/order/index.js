@@ -9,9 +9,7 @@ const db = cloud.database();
 const onError = require("./utility/errorLog.js").onError;
 
 // inPackage function
-const newOrder = require("./function/newOrder");
-const payOrder = require("./function/payOrder");
-const getOrder = require("./function/getOrder");
+const order = require("./function/order.js");
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -21,18 +19,17 @@ exports.main = async (event, context) => {
     };
     console.log("User: ", user);
     switch (event.type) {
-        case "newOrder":
-            return await newOrder.main(event, context, user);
-        case "payOrder":
-            return await payOrder.main(event, context, user);
+        case "addOrder":
+            return await order.add(event, context, user);
         case "getOrder":
-            return await getOrder.main(event, context, user);
-        case "test":
-            return {
-                event: event,
-                context: context,
-                user: user
-            }
+            return await order.get(event, context, user);
+        case "payOrder":
+            return await order.pay(event, context, user);
+        case "setOrderSend":
+            return await order.setSend(event, context, user);
+        case "setOrderReceive":
+            return await order.setReceive(event, context, user);
+
         default:
             return onError("Invalid event type");
     }
