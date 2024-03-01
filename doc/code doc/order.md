@@ -51,7 +51,7 @@ return:
 - *err: string 错误说明
 - orders: Object (与getOrder同构)
 
-## getUserOrdersList
+## getUserOrderList
 
 用户端使用
 
