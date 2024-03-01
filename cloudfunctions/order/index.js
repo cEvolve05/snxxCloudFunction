@@ -23,6 +23,10 @@ exports.main = async (event, context) => {
             return await order.add(event, context, user);
         case "getOrder":
             return await order.get(event, context, user);
+        case "getMerchantOrderList":
+            return await order.getMerchantList(event, context, user);
+        case "getUserOrderList":
+            return await order.getUserList(event, context, user);
         case "payOrder":
             return await order.pay(event, context, user);
         case "setOrderSend":

@@ -26,6 +26,7 @@ exports.add = async (event, context, user) => {
 
     const product = getProduct(event.productGuid)
 
+    // save merchantId to order
     order.merchantId = product.ownerId
 
     // save price to order
@@ -62,24 +63,31 @@ exports.get = async (event, context, user) => {
         }, "无权限访问订单");
     }
 
-    return collection.where({
-        guid: event.orderGuid
-    }).field({
-        merchantId: true,
-        status: true,
-        productGuid: true,
-        list: true,
-        actualPayment: true,
-        receiveAddress: true,
-        sendAddress: true,
-        expressID: true,
-        time: true,
-        note: true,
-    }).get().then(res => {
+    return getOrderByCondition({ guid: event.orderGuid }).then(res => {
         return {
             isErr: false,
             err: null,
             order: res.data[0]
+        };
+    }).catch(onError)
+}
+
+exports.getMerchantList = async (event, context, user) => {
+    return getOrderByCondition({ merchantId: user.openid }).then(res => {
+        return {
+            isErr: false,
+            err: null,
+            orders: res.data
+        };
+    }).catch(onError)
+}
+
+exports.getUserList = async (event, context, user) => {
+    return getOrderByCondition({ buyerId: user.openid }).then(res => {
+        return {
+            isErr: false,
+            err: null,
+            orders: res.data
         };
     }).catch(onError)
 }
@@ -159,6 +167,22 @@ exports.setReceive = async (event, context, user) => {
             err: null
         }
     }).catch(onError)
+}
+
+async function getOrderByCondition(condition) {
+    return collection.where(condition).field({
+        buyerId: true,
+        merchantId: true,
+        status: true,
+        productGuid: true,
+        list: true,
+        actualPayment: true,
+        receiveAddress: true,
+        sendAddress: true,
+        expressID: true,
+        time: true,
+        note: true,
+    }).get();
 }
 
 async function getUserAddess(userOpenid) {
