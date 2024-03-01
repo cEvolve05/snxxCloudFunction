@@ -9,13 +9,8 @@ const db = cloud.database();
 const onError = require("./utility/errorLog.js").onError;
 
 // inPackage function
-const addMain = require("./function/addMain");
-const setMain = require("./function/setMain");
-const hideMain = require("./function/hideMain");
-const addType = require("./function/addType");
-const setType = require("./function/setType");
-const rmType = require("./function/rmType");
-const getProduct = require("./function/getProduct");
+const product = require("./function/product.js");
+const type = require("./function/type.js");
 // 云函数入口函数
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext();
@@ -24,26 +19,29 @@ exports.main = async (event, context) => {
     };
     console.log("User: ", user);
     switch (event.type) {
-        case "addMain":
-            return await addMain.main(event, context, user);
-        case "setMain":
-            return await setMain.main(event, context, user);
-        case "hideMain":
-            return await hideMain.main(event, context, user);
+        case "checkProductExistence":
+            return await product.checkExistence(event, context, user);
+        case "checkTypeExistence":
+            return await type.checkExistence(event, context, user);
+
+        case "addProduct":
+            return await product.add(event, context, user);
+        case "setProduct":
+            return await product.get(event, context, user);
+        case "hideProduct":
+            return await product.set(event, context, user);
+        case "hideProduct":
+            return await product.rm(event, context, user);
+
         case "addType":
-            return await addType.main(event, context, user);
+            return await type.add(event, context, user);
+        case "getType":
+            return await type.get(event, context, user);
         case "setType":
-            return await setType.main(event, context, user);
-        case "rmType":
-            return await rmType.main(event, context, user);
-        case "getProduct":
-            return await getProduct.main(event, context, user);
-        case "test":
-            return {
-                event: event,
-                context: context,
-                user: user
-            }
+            return await type.set(event, context, user);
+        case "rmProduct":
+            return await type.rm(event, context, user);
+
         default:
             return onError("Invalid event type");
     }
