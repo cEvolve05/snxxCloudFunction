@@ -61,16 +61,13 @@
 
 ## commentInfo
 
-- guid: string
-- product: Object:
-    - productGuid: string
-    - typeGuid: string
 - orderGuid: string
+- productGuid: string
 - userOpenid: string
 - time: Date
 - content: string
 - image: Array (云文件ID, string)
-- rating: Array (number) (1~5)
+- rating: Object
 
 ## chat: 
 

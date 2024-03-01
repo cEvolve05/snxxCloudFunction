@@ -1,13 +1,24 @@
 ## addComment
 
+rating 格式前端自行处理
+
 parameter:
 - *orderGuid: string
-- *product: Object:
-    - productGuid: string
-    - typeGuid: string
 - *content: string
 - image: Array (云文件ID, string)
-- *rating: Array (number)
+- *rating: Object
+
+return: 
+- *isErr: bool
+- *err: string 错误说明
+
+## setComment
+
+parameter:
+- *orderGuid: string
+- content: string
+- image: Array (云文件ID, string) (完整替换)
+- rating: Object
 
 return: 
 - *isErr: bool
@@ -16,22 +27,19 @@ return:
 ## getComment
 
 parameter:
-- *commentGuid: string
+- *orderGuid: string
 
 return: 
 - *isErr: bool
 - *err: string 错误说明
 - comment: Object:
-    - product: Object:
-        - productGuid: string
-        - typeGuid: string
     - userOpenid: string
     - time: Date
     - content: string
     - image: Array (云文件ID, string)
     - rating: Array (number) (1~5)
 
-## getCommentList
+## getProductCommentList
 
 parameter:
 - *productGuid: string
@@ -39,7 +47,7 @@ parameter:
 return: 
 - *isErr: bool
 - *err: string 错误说明
-- comments: Array(commentGuid)
+- comments: Array(Object 结构同getComment一致)
 
 ## getUserCommentList
 
@@ -48,12 +56,12 @@ parameter: null
 return: 
 - *isErr: bool
 - *err: string 错误说明
-- comments: Array(commentGuid)
+- comments: Array(Object 结构同getComment一致)
 
 ## rmComment
 
 parameter:
-- *commentGuid: string
+- *orderGuid: string
 
 return: 
 - *isErr: bool

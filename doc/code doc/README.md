@@ -17,8 +17,8 @@ wx.cloud.callFunction({
 unionid 目前没用
 
 错误处理：
-
 - isErr
-- err
-
+- err  
 isErr 为 true 时，可能不含其他的数据，err是可以显示给用户的内容
+
+目前是一个order对应一个comment
