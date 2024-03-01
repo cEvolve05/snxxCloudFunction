@@ -41,27 +41,21 @@
 
 - guid: string
 - buyerId: string openid
+- merchantId: string openid
 - status: string (待付款/待发货/待收货/待评价/已完成/退款中/已退款)
-- cart: Array (Object:
-    - productGuid: string
-    - productName: string
+- productGuid: string
+- list: Array (Object:
     - typeGuid: string
-    - typeName: string
     - number: number
     - price: number (单件)
-- extraPayment: Array (Object:
-    - name: string
-    - price: number
-- coupon: Array (Object: **(pending)**
 - actualPayment: number
 - sendAddress: string
 - receiveAddress: string
 - time: Object:
     - create: Date
     - pay: Date
-    - sent: Date
-    - complete: Date
-- exp: int **(pending)**
+    - send: Date
+    - receive: Date
 - expressID: Object
 - note: string
 

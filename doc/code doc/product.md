@@ -1,3 +1,10 @@
+## checkProductExistence
+
+parameter:
+- *productGuid: string
+
+return: boolen
+
 ## addProduct
 
 parameter:
@@ -50,9 +57,9 @@ return: Object:
 - *isErr: bool
 - *err: string 错误说明
 
-## hideProduct
+## rmProduct
 
-用于移除商品，但不删除数据
+用于移除商品
 
 parameter:
 - *productGuid: string
@@ -60,6 +67,14 @@ parameter:
 return: Object:
 - *isErr: bool
 - *err: string 错误说明
+
+## checkTypeExistence
+
+parameter:
+- *productGuid: string
+- *typeGuid: string
+
+return: boolen
 
 ## addType
 
@@ -76,15 +91,13 @@ return:
 ## getType
 
 parameter:
-- *name: string
-- *price: number
-- *number: number
+- *productGuid: string
+- *typeGuid: string
 
 return:
 - *isErr: bool
 - *err: string 错误说明
-- type: Object:
-    - type: Array (Object:
+- type: Array (Object:
     - guid: string
     - name: string
     - number: number
