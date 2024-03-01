@@ -130,13 +130,13 @@ async function setNumber(user, product, index) {
     })
 }
 
-async function removeItem(user, product) {
+async function removeItem(user, data) {
     const _ = db.command
     return collection.where({
         openid: user.openid
     }).update({
         data: {
-            cart: _.pull(product)
+            cart: _.pull(data)
         }
     })
 }
