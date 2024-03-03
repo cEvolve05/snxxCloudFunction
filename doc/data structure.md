@@ -26,10 +26,10 @@
 - description: string
 - address: string
 - type: Array (Object:
-    - guid: string
-    - name: string
-    - number: number
-    - price: number
+    - guid: string //唯一标识符
+    - name: string //名称，用于显示
+    - number: number //剩余数量
+    - price: number //单价
 - category: string
 - quality: string
 - advantage: string
@@ -43,8 +43,8 @@
 - buyerId: string openid
 - merchantId: string openid
 - status: string (待付款/待发货/待收货/待评价/已完成/退款中/已退款)
-- productGuid: string
-- list: Array (Object:
+- productGuid: string //商品的guid
+- list: Array (Object://参见productInfo.type，为订单包含的type
     - typeGuid: string
     - number: number
     - price: number (单件)
