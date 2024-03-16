@@ -3,7 +3,7 @@
 parameter:
 - *productGuid: string
 
-return: boolen
+return: Boolean
 
 ## addProduct
 
@@ -74,7 +74,7 @@ parameter:
 - *productGuid: string
 - *typeGuid: string
 
-return: boolen
+return: Boolean
 
 ## addType
 

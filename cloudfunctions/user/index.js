@@ -16,38 +16,38 @@ const star = require("./function/star.js");
 // 云函数入口函数
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext();
-    const user = {
+    const userObj = {
         openid: wxContext.OPENID
     };
-    console.log("User: ", user);
+    console.log("User: ", userObj);
     switch (event.type) {
         case "checkUserExistence":
-            return await user.checkExistence(event, context, user);
+            return await user.checkExistence(event, context, userObj);
 
         case "addUser":
-            return await user.add(event, context, user);
+            return await user.add(event, context, userObj);
         case "setUserInfo":
-            return await user.set(event, context, user);
+            return await user.set(event, context, userObj);
         case "getUserProfile":
-            return await user.getProfile(event, context, user);
+            return await user.getProfile(event, context, userObj);
         case "getUserInfo":
-            return await user.getInfo(event, context, user);
+            return await user.getInfo(event, context, userObj);
 
         case "addCart":
-            return await cart.add(event, context, user);
+            return await cart.add(event, context, userObj);
         case "setCart":
-            return await cart.set(event, context, user);
+            return await cart.set(event, context, userObj);
         case "getCart":
-            return await cart.get(event, context, user);
+            return await cart.get(event, context, userObj);
         case "rmCart":
-            return await cart.rm(event, context, user);
+            return await cart.rm(event, context, userObj);
 
         case "addStar":
-            return await star.add(event, context, user);
+            return await star.add(event, context, userObj);
         case "getStar":
-            return await star.get(event, context, user);
+            return await star.get(event, context, userObj);
         case "rmStar":
-            return await star.rm(event, context, user);
+            return await star.rm(event, context, userObj);
         default:
             return onError("Invalid event type");
     }

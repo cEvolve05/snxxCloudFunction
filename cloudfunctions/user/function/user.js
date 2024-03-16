@@ -8,7 +8,7 @@ const collection = db.collection("user_info");
 const onError = require("../utility/errorLog").onError;
 
 exports.checkExistence = async (event, context, user) => {
-    return Boolen((await collection.where({
+    return Boolean((await collection.where({
         openid: user.openid
     }).get()).data.length);
 }
